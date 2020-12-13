@@ -1,0 +1,10 @@
+^avocado\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^data-raw$
+^csv$
+^LICENSE\.md$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
