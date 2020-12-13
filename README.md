@@ -1,1 +1,30 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # avocado
+
+<!-- badges: start -->
+
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/avocado)](https://cran.r-project.org/package=avocado)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub
+commit](https://img.shields.io/github/last-commit/nikdata/avocado)](https://github.com/nikdata/avocado/commit/main)
+[![R-CMD-check](https://github.com/nikdata/avocado/workflows/R-CMD-check/badge.svg)](https://github.com/nikdata/avocado/actions)
+<!-- badges: end -->
+
+\*\* WIP \*\*
+
+The {avocado} package provides a summary of weekly Hass avocado sales
+for the United States. The underlying data are from [The Hass Avocado
+Board](https://hassavocadoboard.com).
+
+## Installation
+
+Install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("nikdata/avocado")
+```
