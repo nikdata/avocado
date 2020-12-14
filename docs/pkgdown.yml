@@ -1,6 +1,8 @@
 pandoc: 2.9.2.1
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2020-12-13T20:16Z
+articles:
+  a_intro: a_intro.html
+  b_analyze-hass-cntry: b_analyze-hass-cntry.html
+last_built: 2020-12-14T20:36Z
 

@@ -41,3 +41,6 @@ vignettes/*.pdf
 
 # Misc
 .DS_Store
+inst/doc
+doc
+Meta
