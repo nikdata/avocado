@@ -59,6 +59,12 @@
     <li>
       <a href="../articles/b_analyze-hass-cntry.html">Analyzing Hass USA</a>
     </li>
+    <li>
+      <a href="../articles/b_analyze-hass-region.html">Analyzing Hass Region</a>
+    </li>
+    <li>
+      <a href="../articles/b_analyze-hass.html">Analyzing Hass</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -87,7 +93,7 @@
     
     
 <p>The {avocado} package provides a weekly summary - starting from January 2017 through November 2020 - of Hass Avocado sales. There are three datasets in this package and let’s start with the dataset <code>hass_usa</code> which focuses on weekly avocado sales in the contiguous US.</p>
-<p>Let’s start by loading the package - along with dplyr (for data wrangling) and ggplot (for data visualization) - and exploring it’s structure</p>
+<p>Let’s start by loading the package - along with {dplyr} (for data wrangling) and {ggplot} (for data visualization) - and exploring it’s structure</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">avocado</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
@@ -124,7 +130,7 @@
 <div id="exploratory-data-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#exploratory-data-analysis" class="anchor"></a>Exploratory Data Analysis</h2>
-<p>Let’s begin by exploring the following three topics:</p>
+<p>Let’s begin by exploring the following two topics:</p>
 <ul>
 <li>Fluctuation of average selling price</li>
 <li>Non Organic Avocado sales revenue</li>
@@ -155,7 +161,8 @@
         legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>,
         legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.815</span>, <span class="fl">0.85</span><span class="op">)</span>
         <span class="op">)</span></code></pre></div>
-<p><img src="b_analyze-hass-cntry_files/figure-html/unnamed-chunk-2-1.png" width="700"> Unsurprisingly, we can see that the average selling price for organic avocados tends to be higher than the average selling price for non-organic avocados. Note how there seems to be a fairly large spike in selling price in late 2017.</p>
+<p><img src="b_analyze-hass-cntry_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
+<p>Unsurprisingly, we can see that the average selling price for organic avocados tends to be higher than the average selling price for non-organic avocados. Note how there seems to be a fairly large spike in selling price in late 2017.</p>
 </div>
 <div id="non-organic-avocado-sales-revenue" class="section level3">
 <h3 class="hasAnchor">
@@ -184,7 +191,8 @@
         <span class="co"># legend.position = c(0.815, 0.2)</span>
         legend.position <span class="op">=</span> <span class="st">'none'</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="b_analyze-hass-cntry_files/figure-html/unnamed-chunk-3-1.png" width="700"> We may have switched gears from looking at average selling price to revenue. However, notice the massive drop in revenue in late 2017 - which seems to correspond to the increase in average selling price for the same time period.</p>
+<p><img src="b_analyze-hass-cntry_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
+<p>We may have switched gears from looking at average selling price to revenue. However, notice the massive drop in revenue in late 2017 - which seems to correspond to the increase in average selling price for the same time period.</p>
 <p>Let’s dive further into that ‘dip’.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hass_usa</span> <span class="op">%&gt;%</span>
@@ -211,7 +219,8 @@
     legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>,
     legend.position <span class="op">=</span> <span class="st">'none'</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="b_analyze-hass-cntry_files/figure-html/unnamed-chunk-4-1.png" width="700"> So we can see that the revenue wasn’t exactly 0. However, it definitely was much lower (way less than a US$1 million). A quick search on the Internet shows that around that time frame, there was a major avocado supply <a href="https://laist.com/2017/08/17/avocado_shortage.php">shortage</a> in the US.</p>
+<p><img src="b_analyze-hass-cntry_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p>So we can see that the revenue wasn’t exactly 0. However, it definitely was much lower (way less than a US$1 million). A quick search on the Internet shows that around that time frame, there was a major avocado supply <a href="https://laist.com/2017/08/17/avocado_shortage.php">shortage</a> in the US.</p>
 </div>
 </div>
   </div>

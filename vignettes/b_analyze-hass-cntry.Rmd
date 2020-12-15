@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 The {avocado} package provides a weekly summary - starting from January 2017 through November 2020 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass_usa` which focuses on weekly avocado sales in the contiguous US.
 
-Let's start by loading the package - along with dplyr (for data wrangling) and ggplot (for data visualization) - and exploring it's structure
+Let's start by loading the package - along with {dplyr} (for data wrangling) and {ggplot} (for data visualization) - and exploring it's structure
 
 ```{r setup}
 library(avocado)
@@ -31,14 +31,14 @@ dplyr::glimpse(hass_usa)
 
 ## Exploratory Data Analysis
 
-Let's begin by exploring the following three topics:
+Let's begin by exploring the following two topics:
 
 - Fluctuation of average selling price
 - Non Organic Avocado sales revenue
 
 ### Fluctuation of Average Selling Price
 
-```{r}
+```{r fig.height=5, fig.width=8}
 hass_usa %>%
   ggplot(aes(x = week_ending)) +
   geom_line(aes(y = avg_price_nonorg, color = 'Non Organic')) +
@@ -62,11 +62,12 @@ hass_usa %>%
         legend.position = c(0.815, 0.85)
         )
 ```
+
 Unsurprisingly, we can see that the average selling price for organic avocados tends to be higher than the average selling price for non-organic avocados. Note how there seems to be a fairly large spike in selling price in late 2017.
 
 ### Non Organic Avocado Sales Revenue
 
-```{r}
+```{r fig.height=5, fig.width=8}
 hass_usa %>%
   mutate(
     nonorg_rev = (plu4046+plu4225+plu4770+small_nonorg_bag+large_nonorg_bag+xlarge_nonorg_bag) * avg_price_nonorg
@@ -91,11 +92,12 @@ hass_usa %>%
         legend.position = 'none'
   )
 ```
+
 We may have switched gears from looking at average selling price to revenue. However, notice the massive drop in revenue in late 2017 - which seems to correspond to the increase in average selling price for the same time period.
 
 Let's dive further into that 'dip'.
 
-```{r}
+```{r fig.height=5, fig.width=8}
 hass_usa %>%
   mutate(
     nonorg_rev = (plu4046+plu4225+plu4770+small_nonorg_bag+large_nonorg_bag+xlarge_nonorg_bag) * avg_price_nonorg
@@ -121,4 +123,5 @@ hass_usa %>%
     legend.position = 'none'
   )
 ```
+
 So we can see that the revenue wasn't exactly 0. However, it definitely was much lower (way less than a US$1 million). A quick search on the Internet shows that around that time frame, there was a major avocado supply [shortage](https://laist.com/2017/08/17/avocado_shortage.php) in the US.

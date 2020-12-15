@@ -27,5 +27,6 @@ Suggests:
     knitr,
     rmarkdown,
     lubridate,
-    tidyr
+    tidyr,
+    ggrepel
 VignetteBuilder: knitr

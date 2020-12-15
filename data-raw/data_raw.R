@@ -109,13 +109,13 @@ hass_region <- df_all %>%
   dplyr::filter(geo_type == 'region') %>%
   dplyr::select(-geo_type, -region) %>%
   dplyr::rename(region = 'geography') %>%
-  dplyr::select(week_ending, region, avg_price_nonorg, plu4046, plu4225, plu4770, small_nonorg_bag, large_nonorg_bag, xlarge_nonorg_bag, plu94046, plu94225, plu94770, small_org_bag, large_org_bag, xlarge_org_bag)
+  dplyr::select(week_ending, region, avg_price_nonorg, plu4046, plu4225, plu4770, small_nonorg_bag, large_nonorg_bag, xlarge_nonorg_bag, avg_price_org, plu94046, plu94225, plu94770, small_org_bag, large_org_bag, xlarge_org_bag)
 
 hass <- df_all %>%
   dplyr::filter(!geo_type %in% c('country','region')) %>%
   dplyr::select(-geo_type) %>%
   dplyr::rename(location = 'geography') %>%
-  dplyr::select(week_ending, location, region, avg_price_nonorg, plu4046, plu4225, plu4770, small_nonorg_bag, large_nonorg_bag, xlarge_nonorg_bag, plu94046, plu94225, plu94770, small_org_bag, large_org_bag, xlarge_org_bag)
+  dplyr::select(week_ending, location, region, avg_price_nonorg, plu4046, plu4225, plu4770, small_nonorg_bag, large_nonorg_bag, xlarge_nonorg_bag, avg_price_org, plu94046, plu94225, plu94770, small_org_bag, large_org_bag, xlarge_org_bag)
 
 # write out
 usethis::use_data(hass_usa, overwrite = TRUE, compress = 'xz')

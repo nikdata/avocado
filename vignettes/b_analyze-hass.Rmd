@@ -1,0 +1,65 @@
+---
+title: "Analyzing Hass"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analyzing Hass}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 5,
+  fig_width = 8
+)
+```
+
+The {avocado} package provides a weekly summary - starting from January 2017 through November 2020 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass` which focuses on weekly avocado sales in various cities/sub-regions across various regions (as defined by the [Hass Avocado Board](https://hassavocadoboard.com)) of the contiguous US. The `region` variable in the `hass` dataset can be 'merged' with the `hass_region` dataset using the `region` variable in both. Do note that the `location` variable only consists of a sample of cities/sub-regions found within respective regions. Therefore, the totals in this dataset will NOT equal the totals found in the `hass_region` dataset.
+
+Let's start by loading the package - along with {dplyr} (for data wrangling) and {ggplot} (for data visualization) - and exploring it's structure
+
+```{r setup}
+library(avocado)
+library(dplyr)
+library(ggplot2)
+
+data('hass')
+
+dplyr::glimpse(hass)
+```
+
+## Exploratory Data Analysis
+
+Let's begin by exploring the following topic:
+
+- Average Sales Price for Chicago
+
+### Average Sales Price - Chicago
+
+```{r fig.height=5, fig.width=8}
+hass %>%
+  filter(location == 'Chicago') %>%
+  ggplot(aes(x = week_ending)) +
+  geom_line(aes(y = avg_price_nonorg, color = 'Non Organic')) +
+  geom_line(aes(y = avg_price_org, color = 'Organic')) +
+  scale_color_manual(name = 'Type', values = c('Non Organic' = 'steelblue', "Organic" = 'darkgreen')) +
+  labs(x = 'Week Ending', y = 'Average Selling Price (US$)', title = 'Average Selling Price Over Time - Chicago', caption = "Source: Hass Avocado Board\nNot adjusted for inflation") +
+  theme(plot.background = element_rect(fill = "grey20"),
+    plot.title = element_text(color = "#FFFFFF"),
+    axis.title = element_text(color = "#FFFFFF"),
+    axis.text.x = element_text(color = 'grey50', angle = 45, hjust = 1),
+    axis.text.y = element_text(color = 'grey50'),
+    plot.caption = element_text(color = 'grey75'),
+    panel.background = element_blank(),
+    panel.grid.major = element_line(color = "grey50", size = 0.2),
+    panel.grid.minor = element_line(color = "grey50", size = 0.2),
+    legend.background = element_rect(fill = 'grey20'),
+    legend.key = element_rect(fill = 'grey20'),
+    legend.title = element_text(color = 'grey75'),
+    legend.text = element_text(color = 'grey75'),
+    legend.position = c(0.815, 0.85)
+    )
+```
+
