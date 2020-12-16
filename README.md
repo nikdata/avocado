@@ -14,8 +14,6 @@ commit](https://img.shields.io/github/last-commit/nikdata/avocado)](https://gith
 [![R-CMD-check](https://github.com/nikdata/avocado/workflows/R-CMD-check/badge.svg)](https://github.com/nikdata/avocado/actions)
 <!-- badges: end -->
 
-\*\* WIP \*\*
-
 The {avocado} package provides a summary of weekly Hass avocado sales
 for the contiguous United States. The underlying data are from [The Hass
 Avocado Board](https://hassavocadoboard.com) (free registration
@@ -26,7 +24,8 @@ data on them to growers and marketers.
 The HAB makes this information available to anyone who may be interested
 (free registration required). An important note to remember is that when
 they use the term ‘units’, it often means the weight in US pounds. The
-HAB does not provide (at least publicly) actual piece-count sales.
+HAB does not provide (at least publicly) actual piece-count sales to
+retailers.
 
 ## About the PLUs
 
@@ -38,7 +37,7 @@ The {avocadoo} package consists of 6 different
   - 4770: non-organic extra large Hass Avocados (\~10-15 oz)
   - 94046: organic small/medium Hass Avocados (\~3-5 oz)
   - 94225: organic large Hass Avocados (\~8-10 oz)
-  - 94770: organic extra large Hass Avocados
+  - 94770: organic extra large Hass Avocados (\~10-15 oz)
 
 Source: [Love One
 Today](https://loveonetoday.com/how-to/identify-hass-avocados/)
@@ -54,7 +53,9 @@ instance, a package of six avocados may consist of 2 PLU 4046, 3 PLU
 4770 and 1 PLU 4225. In other words, bagged sales are unable to account
 for individual PLU sales.
 
-See vignette for more information.
+See this
+[vignette](https://nikdata.github.io/avocado/articles/a_intro.html) for
+more information.
 
 ## Installation
 
