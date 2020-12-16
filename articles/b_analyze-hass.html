@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">avocado</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -66,6 +66,9 @@
       <a href="../articles/b_analyze-hass.html">Analyzing Hass</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -133,7 +136,9 @@
 <a href="#exploratory-data-analysis" class="anchor"></a>Exploratory Data Analysis</h2>
 <p>Let’s begin by exploring the following topic:</p>
 <ul>
-<li>Average Sales Price for Chicago</li>
+<li>Average Sales Price for Chicago over Time</li>
+<li>Total Revenue for Locations within Great Lakes Region, excluding Chicago</li>
+<li>Total Revenue by Month by Year within Great Lakes Region, excluding Chicago</li>
 </ul>
 <div id="average-sales-price---chicago" class="section level3">
 <h3 class="hasAnchor">
@@ -162,6 +167,82 @@
     legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.815</span>, <span class="fl">0.85</span><span class="op">)</span>
     <span class="op">)</span></code></pre></div>
 <p><img src="b_analyze-hass_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
+<p>2017 does seem to have some peculiarities in terms of price. However, that can be attributed to a shortage in avocados. While this may seem a bit plain, let’s look at the total revenue for the other communities within the Great Lakes region and exclude Chicago - as it is a far larger city.</p>
+</div>
+<div id="total-revenue-for-great-lakes-region-without-chicago" class="section level3">
+<h3 class="hasAnchor">
+<a href="#total-revenue-for-great-lakes-region-without-chicago" class="anchor"></a>Total Revenue for Great Lakes Region without Chicago</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">hass</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">region</span> <span class="op">==</span> <span class="st">'Great Lakes'</span> <span class="op">&amp;</span> <span class="va">location</span> <span class="op">!=</span> <span class="st">'Chicago'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    year <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">week_ending</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>
+    <span class="va">year</span>, <span class="va">location</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    total_revenue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">avg_price_nonorg</span> <span class="op">*</span> <span class="op">(</span><span class="va">plu4046</span> <span class="op">+</span> <span class="va">plu4225</span> <span class="op">+</span> <span class="va">plu4770</span> <span class="op">+</span> <span class="va">small_nonorg_bag</span> <span class="op">+</span> <span class="va">large_nonorg_bag</span> <span class="op">+</span> <span class="va">xlarge_nonorg_bag</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">avg_price_org</span> <span class="op">*</span> <span class="op">(</span><span class="va">plu94046</span> <span class="op">+</span> <span class="va">plu94225</span> <span class="op">+</span> <span class="va">plu94770</span> <span class="op">+</span> <span class="va">small_org_bag</span> <span class="op">+</span> <span class="va">large_org_bag</span> <span class="op">+</span> <span class="va">xlarge_org_bag</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000000</span>,
+    .groups <span class="op">=</span> <span class="st">'drop'</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">total_revenue</span>, group <span class="op">=</span> <span class="va">location</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">location</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">'white'</span>, stat <span class="op">=</span> <span class="st">'identity'</span>, position <span class="op">=</span> <span class="st">'dodge'</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">'Total Revenue (US$)'</span>, fill <span class="op">=</span> <span class="st">'Location'</span>, title <span class="op">=</span> <span class="st">'Total Revenue within Great Lakes Region'</span>, caption <span class="op">=</span> <span class="st">'Souce: Hass Avocado Board\nNot adjusted for inflation'</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey20"</span><span class="op">)</span>,
+  plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#FFFFFF"</span><span class="op">)</span>,
+  axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#FFFFFF"</span><span class="op">)</span>,
+  axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey50'</span>, angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+  axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey50'</span><span class="op">)</span>,
+  plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>,
+  panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+  panel.grid.major <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey50"</span>, size <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,
+  panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey50"</span>, size <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,
+  legend.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">'grey20'</span><span class="op">)</span>,
+  legend.key <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">'grey20'</span><span class="op">)</span>,
+  legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>,
+  legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<p><img src="b_analyze-hass_files/figure-html/unnamed-chunk-3-1.png" width="768"> Now this is interesting! Grand Rapids had more total revenue than Detroit in 2017, but in the years following, it seemed to take a big hit in revenue!</p>
+</div>
+<div id="revenue-by-month---great-lakes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#revenue-by-month---great-lakes" class="anchor"></a>Revenue by Month - Great Lakes</h3>
+<p>Perhaps it may be interesting to dive down into the monthly level for each year to see the total revenue. Is there a particular month that stands out? Once again, we’ll exclude Chicago. Let’s find out.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">hass</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">region</span> <span class="op">==</span> <span class="st">'Great Lakes'</span> <span class="op">&amp;</span> <span class="va">location</span> <span class="op">!=</span> <span class="st">'Chicago'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    month <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">week_ending</span>, label <span class="op">=</span> <span class="cn">T</span>, abbr <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>,
+    year <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">week_ending</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">location</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    total_revenue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">avg_price_nonorg</span> <span class="op">*</span> <span class="op">(</span><span class="va">plu4046</span> <span class="op">+</span> <span class="va">plu4225</span> <span class="op">+</span> <span class="va">plu4770</span> <span class="op">+</span> <span class="va">small_nonorg_bag</span> <span class="op">+</span> <span class="va">large_nonorg_bag</span> <span class="op">+</span> <span class="va">xlarge_nonorg_bag</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">avg_price_org</span> <span class="op">*</span> <span class="op">(</span><span class="va">plu94046</span> <span class="op">+</span> <span class="va">plu94225</span> <span class="op">+</span> <span class="va">plu94770</span> <span class="op">+</span> <span class="va">small_org_bag</span> <span class="op">+</span> <span class="va">large_org_bag</span> <span class="op">+</span> <span class="va">xlarge_org_bag</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000000</span>,
+    .groups <span class="op">=</span> <span class="st">'drop'</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">month</span>, y <span class="op">=</span> <span class="va">total_revenue</span>, group <span class="op">=</span> <span class="va">location</span>, color <span class="op">=</span> <span class="va">location</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">.</span><span class="op">~</span><span class="va">year</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">'Location'</span>, x <span class="op">=</span> <span class="st">'Month'</span>, y <span class="op">=</span> <span class="st">'Total Revenue (US$)'</span>, caption <span class="op">=</span> <span class="st">'Source: Hass Avocado Board\nNot adjusted for inflation'</span>, title <span class="op">=</span> <span class="st">'Total Revenue per Year by Month - Great Lakes Region'</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey20"</span><span class="op">)</span>,
+        plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#FFFFFF"</span><span class="op">)</span>,
+        axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#FFFFFF"</span><span class="op">)</span>,
+        axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey50'</span>, angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+        axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey50'</span><span class="op">)</span>,
+        plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>,
+        panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+        panel.grid.major <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey50"</span>, size <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,
+        panel.grid.minor <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey50"</span>, size <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,
+        legend.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">'grey20'</span><span class="op">)</span>,
+        legend.key <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">'grey20'</span><span class="op">)</span>,
+        legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>,
+        legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey75'</span><span class="op">)</span>,
+        strip.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">'grey50'</span><span class="op">)</span>,
+        strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'black'</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<p><img src="b_analyze-hass_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p>It seems as if the revenue declines in the winter months. This could be due to reduced supply and demand. On the other hand, during the late spring and summer months, revenue is at its highest. Maybe guacamole is a summer dish? Not for me!</p>
 </div>
 </div>
   </div>
