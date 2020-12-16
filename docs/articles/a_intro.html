@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">avocado</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -66,6 +66,9 @@
       <a href="../articles/b_analyze-hass.html">Analyzing Hass</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -114,76 +117,15 @@
 <li>94770: organic extra large Hass Avocados</li>
 </ul>
 </div>
-<div id="datasets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#datasets" class="anchor"></a>Datasets</h2>
 <div id="bags-vs-plu" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bags-vs-plu" class="anchor"></a>Bags vs PLU</h3>
 <p>Another distinction that the HAB makes is between bags versus bulk. Bulk typically means avocados sold as individual pieces and are easily distinguishable with their PLU codes. Hence, the PLU refers to a bulk sale. On the other hand, the bags indicates a pre-packaged container consisting of a variable number of avocados of mixed PLU type. For instance, a package of six avocados may consist of 2 PLU 4046, 3 PLU 4770 and 1 PLU 4225. In other words, bagged sales are unable to account for individual PLU sales.</p>
 </div>
-<div id="hass_usa" class="section level3">
+<div id="region-vs--location" class="section level3">
 <h3 class="hasAnchor">
-<a href="#hass_usa" class="anchor"></a>hass_usa</h3>
-<p>The <code>hass_usa</code> dataset focuses on weekly Hass Avocado sales at the country (i.e., contiguous US) level and consists of the following fields:</p>
-<ul>
-<li>
-<code>week_ending</code>: The date of the last day of the week in YYYY-MM-DD format</li>
-<li>
-<code>avg_price_nonorg</code>: The average selling price in US$ for non-organic Hass avocados. Not adjusted for inflation</li>
-<li>
-<code>plu4046</code>: The amount of PLU 4046 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
-<li>
-<code>plu4225</code>: The amount of PLU 4225 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
-<li>
-<code>plu4770</code>: The amount of PLU 4770 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
-<li>
-<code>small_nonorg_bag</code>: The amount of non-organic Hass avocados (they can be a mix of PLUs) sold in small pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
-<li>
-<code>large_nonorg_bag</code>: The amount of non-organic Hass avocados (they can be a mix of PLUs) sold in large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
-<li>
-<code>xlarge_nonorg</code>-bag: The amount of non-organic Hass avocados (they can be a mix of PLUs) sold in extra-large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
-<li>
-<code>avg_price_org</code>: The average selling price in US$ for organic Hass avocados. Not adjusted for inflation</li>
-<li>
-<code>plu94046</code>: The amount of PLU 94046 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
-<li>
-<code>plu94225</code>: The amount of PLU 94225 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
-<li>
-<code>plu94770</code>: The amount of PLU 94770 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
-<li>
-<code>small_org_bag</code>: The amount of organic Hass avocados (they can be a mix of PLUs) sold in small pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
-<li>
-<code>large_org_bag</code>: The amount of organic Hass avocados (they can be a mix of PLUs) sold in large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
-<li>
-<code>xlarge_org_bag</code>: The amount of organic Hass avocados (they can be a mix of PLUs) sold in extra-large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">avocado</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">'hass_usa'</span><span class="op">)</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">hass_usa</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 197</span>
-<span class="co">#&gt; Columns: 15</span>
-<span class="co">#&gt; $ week_ending       &lt;dttm&gt; 2017-01-02, 2017-01-08, 2017-01-15, 2017-01-22, 20…</span>
-<span class="co">#&gt; $ avg_price_nonorg  &lt;dbl&gt; 0.89, 0.99, 0.98, 0.94, 0.96, 0.77, 0.87, 0.99, 0.9…</span>
-<span class="co">#&gt; $ plu4046           &lt;dbl&gt; 12707895, 11809728, 12936858, 14254150, 14034076, 2…</span>
-<span class="co">#&gt; $ plu4225           &lt;dbl&gt; 14201201, 13856935, 12625665, 14212882, 11683465, 2…</span>
-<span class="co">#&gt; $ plu4770           &lt;dbl&gt; 549844.6, 539068.4, 579346.5, 908616.4, 818727.0, 1…</span>
-<span class="co">#&gt; $ small_nonorg_bag  &lt;dbl&gt; 8551134, 9332972, 9445622, 9462854, 9918256, 125671…</span>
-<span class="co">#&gt; $ large_nonorg_bag  &lt;dbl&gt; 2802709, 2432259, 2638918, 3231020, 2799961, 361827…</span>
-<span class="co">#&gt; $ xlarge_nonorg_bag &lt;dbl&gt; 66933.73, 78840.96, 69077.52, 70871.48, 119095.66, …</span>
-<span class="co">#&gt; $ avg_price_org     &lt;dbl&gt; 1.48, 1.43, 1.44, 1.37, 1.43, 1.36, 1.41, 1.31, 1.2…</span>
-<span class="co">#&gt; $ plu94046          &lt;dbl&gt; 99820.77, 117721.87, 121132.79, 115700.02, 131808.2…</span>
-<span class="co">#&gt; $ plu94225          &lt;dbl&gt; 273329.61, 283532.68, 280287.84, 281786.33, 292584.…</span>
-<span class="co">#&gt; $ plu94770          &lt;dbl&gt; 4425.75, 8697.35, 8750.08, 6707.82, 3524.96, 2238.7…</span>
-<span class="co">#&gt; $ small_org_bag     &lt;dbl&gt; 273456.00, 379088.19, 400292.46, 401805.90, 346391.…</span>
-<span class="co">#&gt; $ large_org_bag     &lt;dbl&gt; 157939.75, 201681.74, 165261.11, 188282.91, 178896.…</span>
-<span class="co">#&gt; $ xlarge_org_bag    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></code></pre></div>
-</div>
-<div id="haas_region" class="section level3">
-<h3 class="hasAnchor">
-<a href="#haas_region" class="anchor"></a>haas_region</h3>
-<p>The <code>hass_region</code> dataset focuses on weekly US Hass Avocado sales at the region level and consist of 8 regions (for convenience, the states within each region are also listed - but are not available within the dataset since sales are not broken down by state):</p>
+<a href="#region-vs--location" class="anchor"></a>Region vs. Location</h3>
+<p>The <code>hass_region</code> and <code>hass</code> datasets contain a shared variable called <code>region</code> and the <code>hass</code> dataset has a variable called <code>location</code>. Regions are defined by the Hass Avocado Board and Locations are selected cities or sub-regions that are part of the overall Region. The totals found for all locations within a Region will not equal the total found for the specific Region due to the aforementioned point. For convenience, here is a breakdown of the Regions and Locations:</p>
 <ul>
 <li>California</li>
 <li>West
@@ -262,7 +204,72 @@
 </ul>
 </li>
 </ul>
-<p>The <code>hass_region</code> dataset fields:</p>
+</div>
+<div id="datasets" class="section level2">
+<h2 class="hasAnchor">
+<a href="#datasets" class="anchor"></a>Datasets</h2>
+<div id="hass_usa" class="section level3">
+<h3 class="hasAnchor">
+<a href="#hass_usa" class="anchor"></a>hass_usa</h3>
+<p>The <code>hass_usa</code> dataset focuses on weekly Hass Avocado sales at the country (i.e., contiguous US) level and consists of the following fields:</p>
+<ul>
+<li>
+<code>week_ending</code>: The date of the last day of the week in YYYY-MM-DD format</li>
+<li>
+<code>avg_price_nonorg</code>: The average selling price in US$ for non-organic Hass avocados. Not adjusted for inflation</li>
+<li>
+<code>plu4046</code>: The amount of PLU 4046 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
+<li>
+<code>plu4225</code>: The amount of PLU 4225 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
+<li>
+<code>plu4770</code>: The amount of PLU 4770 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
+<li>
+<code>small_nonorg_bag</code>: The amount of non-organic Hass avocados (they can be a mix of PLUs) sold in small pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
+<li>
+<code>large_nonorg_bag</code>: The amount of non-organic Hass avocados (they can be a mix of PLUs) sold in large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
+<li>
+<code>xlarge_nonorg</code>-bag: The amount of non-organic Hass avocados (they can be a mix of PLUs) sold in extra-large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
+<li>
+<code>avg_price_org</code>: The average selling price in US$ for organic Hass avocados. Not adjusted for inflation</li>
+<li>
+<code>plu94046</code>: The amount of PLU 94046 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
+<li>
+<code>plu94225</code>: The amount of PLU 94225 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
+<li>
+<code>plu94770</code>: The amount of PLU 94770 Hass avocados sold by weight in US pounds. This does not include avocados sold in pre-packaged quantities. See vignette for more information about Hass PLUs</li>
+<li>
+<code>small_org_bag</code>: The amount of organic Hass avocados (they can be a mix of PLUs) sold in small pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
+<li>
+<code>large_org_bag</code>: The amount of organic Hass avocados (they can be a mix of PLUs) sold in large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
+<li>
+<code>xlarge_org_bag</code>: The amount of organic Hass avocados (they can be a mix of PLUs) sold in extra-large pre-packaged containers/bags in US pounds. This does not include avocados sold individually. See vignette for more information about pre-packaged avocados</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">avocado</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">'hass_usa'</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">hass_usa</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 197</span>
+<span class="co">#&gt; Columns: 15</span>
+<span class="co">#&gt; $ week_ending       &lt;dttm&gt; 2017-01-02, 2017-01-08, 2017-01-15, 2017-01-22, 20…</span>
+<span class="co">#&gt; $ avg_price_nonorg  &lt;dbl&gt; 0.89, 0.99, 0.98, 0.94, 0.96, 0.77, 0.87, 0.99, 0.9…</span>
+<span class="co">#&gt; $ plu4046           &lt;dbl&gt; 12707895, 11809728, 12936858, 14254150, 14034076, 2…</span>
+<span class="co">#&gt; $ plu4225           &lt;dbl&gt; 14201201, 13856935, 12625665, 14212882, 11683465, 2…</span>
+<span class="co">#&gt; $ plu4770           &lt;dbl&gt; 549844.6, 539068.4, 579346.5, 908616.4, 818727.0, 1…</span>
+<span class="co">#&gt; $ small_nonorg_bag  &lt;dbl&gt; 8551134, 9332972, 9445622, 9462854, 9918256, 125671…</span>
+<span class="co">#&gt; $ large_nonorg_bag  &lt;dbl&gt; 2802709, 2432259, 2638918, 3231020, 2799961, 361827…</span>
+<span class="co">#&gt; $ xlarge_nonorg_bag &lt;dbl&gt; 66933.73, 78840.96, 69077.52, 70871.48, 119095.66, …</span>
+<span class="co">#&gt; $ avg_price_org     &lt;dbl&gt; 1.48, 1.43, 1.44, 1.37, 1.43, 1.36, 1.41, 1.31, 1.2…</span>
+<span class="co">#&gt; $ plu94046          &lt;dbl&gt; 99820.77, 117721.87, 121132.79, 115700.02, 131808.2…</span>
+<span class="co">#&gt; $ plu94225          &lt;dbl&gt; 273329.61, 283532.68, 280287.84, 281786.33, 292584.…</span>
+<span class="co">#&gt; $ plu94770          &lt;dbl&gt; 4425.75, 8697.35, 8750.08, 6707.82, 3524.96, 2238.7…</span>
+<span class="co">#&gt; $ small_org_bag     &lt;dbl&gt; 273456.00, 379088.19, 400292.46, 401805.90, 346391.…</span>
+<span class="co">#&gt; $ large_org_bag     &lt;dbl&gt; 157939.75, 201681.74, 165261.11, 188282.91, 178896.…</span>
+<span class="co">#&gt; $ xlarge_org_bag    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></code></pre></div>
+</div>
+<div id="haas_region" class="section level3">
+<h3 class="hasAnchor">
+<a href="#haas_region" class="anchor"></a>haas_region</h3>
+<p>The <code>hass_region</code> dataset focuses on weekly US Hass Avocado sales at the region level and consist of the following fields:</p>
 <ul>
 <li>
 <code>region</code>: Specific region within the US as defined by the Hass Avocado Board</li>
