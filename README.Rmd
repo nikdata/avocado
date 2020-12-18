@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# avocado
+# avocado <a href='https://nikdata.github.io/avocado/'><img src='man/figures/avocado.png' align="right" width="150" height="150" />
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/avocado)](https://cran.r-project.org/package=avocado)
@@ -62,3 +62,19 @@ The {avocado} package consists of three different datasets:
 - `hass_region`: weekly contiguous US avocado sales at the region level
 - `hass`: weekly contiguous US avocado sales at the city/sub-region level
 
+### Example
+
+The `hass` dataset provides a weekly sales summary of Hass Avocado sales in the contiguous US (subdivided by region and select cites/sub-regions within each 'parent' region):
+
+```{r}
+library(avocado)
+dplyr::glimpse(hass)
+```
+
+## Use Cases
+
+Some potential use cases include:
+
+- Determining peak sale periods for each region
+- Determining which PLU is most popular in some major cities (e.g., Chicago, Los Angeles, etc.)
+- Differences between organic and non-organic Hass Avocados
