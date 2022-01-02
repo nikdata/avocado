@@ -13,6 +13,7 @@ dfr_2017 <- df_raw[[1]] %>% janitor::clean_names(.)
 dfr_2018 <- df_raw[[2]] %>% janitor::clean_names(.)
 dfr_2019 <- df_raw[[3]] %>% janitor::clean_names(.)
 dfr_2020 <- df_raw[[4]] %>% janitor::clean_names(.)
+dfr_2021 <- df_raw[[5]] %>% janitor::clean_names(.)
 
 # clean
 
@@ -57,6 +58,7 @@ cleaner <- function(df) {
       large_nonorg_bag = lrg_bagged_units,
       xlarge_nonorg_bag = x_lrg_bagged_units
     ) %>%
+    {if('bulk_gtin' %in% names(.)) dplyr::rename(.,bulk_nonorg_gtin=bulk_gtin) else .} %>%
     dplyr::select(
       -geography,
       -timeframe,
@@ -76,6 +78,7 @@ cleaner <- function(df) {
       large_org_bag = lrg_bagged_units,
       xlarge_org_bag = x_lrg_bagged_units
     ) %>%
+    {if('bulk_gtin' %in% names(.)) dplyr::rename(.,bulk_org_gtin=bulk_gtin) else .} %>%
     dplyr::select(
       -geography,
       -timeframe,
@@ -96,6 +99,7 @@ dfc_2017 <- cleaner(dfr_2017)
 dfc_2018 <- cleaner(dfr_2018)
 dfc_2019 <- cleaner(dfr_2019)
 dfc_2020 <- cleaner(dfr_2020)
+dfc_2021 <- cleaner(dfr_2021)
 
 # combine all of them into one
 df_all = dplyr::bind_rows(dfc_2017, dfc_2018, dfc_2019, dfc_2020)
