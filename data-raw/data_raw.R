@@ -17,18 +17,19 @@ dfr_2021 <- df_raw[[5]] %>% janitor::clean_names(.)
 
 # clean
 
-cleaner <- function(df) {
+cleaner <- function(input_df) {
 
   # remove the total columns (redundant)
-  df <- df %>%
-    dplyr::select(-total_bulk_and_bags_units, -total_bagged_units)
+  # df <- input_df %>%
+  #   dplyr::select(-total_bulk_and_bags_units, -total_bagged_units)
 
   # get the meta data columns & create a region type
-  meta <- df %>%
+  meta <- input_df %>%
     dplyr::select(geography, current_year_week_ending) %>%
     dplyr::rename(week_ending = current_year_week_ending) %>%
     dplyr::distinct() %>%
     dplyr::mutate(
+      week_ending = as.Date(week_ending),
       geo_type = dplyr::case_when(
         geography == 'Total U.S.' ~ 'country',
         geography %in% c('California','West','Plains','South Central','Great Lakes','Midsouth','Southeast','Northeast') ~ 'region',
@@ -47,10 +48,12 @@ cleaner <- function(df) {
     )
 
   # get the non-organic data
-  nonorg <- df %>%
+  nonorg <- input_df %>%
     dplyr::filter(type == 'Conventional') %>%
     dplyr::rename(
       avg_price_nonorg = asp_current_year,
+      total_nonorg_units = total_bulk_and_bags_units,
+      total_nonorg_bag_units = total_bagged_units,
       plu4046 = x4046_units,
       plu4225 = x4225_units,
       plu4770 = x4770_units,
@@ -67,10 +70,12 @@ cleaner <- function(df) {
     )
 
   # get the organic data
-  org <- df %>%
+  org <- input_df %>%
     dplyr::filter(type == 'Organic') %>%
     dplyr::rename(
       avg_price_org = asp_current_year,
+      total_org_units = total_bulk_and_bags_units,
+      total_org_bag_units = total_bagged_units,
       plu94046 = x4046_units,
       plu94225 = x4225_units,
       plu94770 = x4770_units,
@@ -102,24 +107,72 @@ dfc_2020 <- cleaner(dfr_2020)
 dfc_2021 <- cleaner(dfr_2021)
 
 # combine all of them into one
-df_all = dplyr::bind_rows(dfc_2017, dfc_2018, dfc_2019, dfc_2020)
+df_all = dplyr::bind_rows(dfc_2017, dfc_2018, dfc_2019, dfc_2020, dfc_2021)
 
 # create 3 datasets: country, region, city/subregion
 
 hass_usa <- df_all %>%
   dplyr::filter(geo_type == 'country') %>%
   dplyr::select(-geo_type, -region, -geography)
+
 hass_region <- df_all %>%
   dplyr::filter(geo_type == 'region') %>%
   dplyr::select(-geo_type, -region) %>%
   dplyr::rename(region = 'geography') %>%
-  dplyr::select(week_ending, region, avg_price_nonorg, plu4046, plu4225, plu4770, small_nonorg_bag, large_nonorg_bag, xlarge_nonorg_bag, avg_price_org, plu94046, plu94225, plu94770, small_org_bag, large_org_bag, xlarge_org_bag)
+  dplyr::select(
+    week_ending,
+    region,
+    avg_price_nonorg,
+    total_nonorg_units,
+    total_nonorg_bag_units,
+    total_org_units,
+    total_org_bag_units,
+    plu4046,
+    plu4225,
+    plu4770,
+    small_nonorg_bag,
+    large_nonorg_bag,
+    xlarge_nonorg_bag,
+    avg_price_org,
+    plu94046,
+    plu94225,
+    plu94770,
+    small_org_bag,
+    large_org_bag,
+    xlarge_org_bag,
+    bulk_nonorg_gtin,
+    bulk_org_gtin
+  )
 
 hass <- df_all %>%
   dplyr::filter(!geo_type %in% c('country','region')) %>%
   dplyr::select(-geo_type) %>%
   dplyr::rename(location = 'geography') %>%
-  dplyr::select(week_ending, location, region, avg_price_nonorg, plu4046, plu4225, plu4770, small_nonorg_bag, large_nonorg_bag, xlarge_nonorg_bag, avg_price_org, plu94046, plu94225, plu94770, small_org_bag, large_org_bag, xlarge_org_bag)
+  dplyr::select(
+    week_ending,
+    location,
+    region,
+    avg_price_nonorg,
+    total_nonorg_units,
+    total_nonorg_bag_units,
+    total_org_units,
+    total_org_bag_units,
+    plu4046,
+    plu4225,
+    plu4770,
+    small_nonorg_bag,
+    large_nonorg_bag,
+    xlarge_nonorg_bag,
+    avg_price_org,
+    plu94046,
+    plu94225,
+    plu94770,
+    small_org_bag,
+    large_org_bag,
+    xlarge_org_bag,
+    bulk_nonorg_gtin,
+    bulk_org_gtin
+  )
 
 # write out
 usethis::use_data(hass_usa, overwrite = TRUE, compress = 'xz')

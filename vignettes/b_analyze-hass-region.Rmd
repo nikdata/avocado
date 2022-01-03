@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The {avocado} package provides a weekly summary - starting from January 2017 through November 2020 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass_region` which focuses on weekly avocado sales in various regions (as defined by the [Hass Avocado Board](https://hassavocadoboard.com)) of the contiguous US.
+The {avocado} package provides a weekly summary - starting from January 2017 through October 2021 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass_region` which focuses on weekly avocado sales in various regions (as defined by the [Hass Avocado Board](https://hassavocadoboard.com)) of the contiguous US.
 
 Let's start by loading the package - along with {dplyr} (for data wrangling) and {ggplot} (for data visualization) - and exploring it's structure
 
@@ -47,7 +47,7 @@ hass_region %>%
   filter(year == 2019) %>%
   group_by(year, region) %>%
   summarize(
-    total_revenue = sum((avg_price_nonorg)*(plu4046 + plu4225 + plu4770 + small_nonorg_bag + large_nonorg_bag + xlarge_nonorg_bag) + (avg_price_org)*(plu94046 + plu94225 + plu94770 + small_org_bag + large_org_bag + xlarge_org_bag)),
+    total_revenue = sum((avg_price_nonorg)*(total_nonorg_units) + (avg_price_org)*(total_org_units)),
     .groups = 'drop'
   ) %>%
   slice(which.max(total_revenue))
@@ -63,7 +63,7 @@ hass_region %>%
   filter(year == 2019) %>%
   group_by(week_ending, region) %>%
   summarize(
-    total_revenue = sum((avg_price_nonorg)*(plu4046 + plu4225 + plu4770 + small_nonorg_bag + large_nonorg_bag + xlarge_nonorg_bag) + (avg_price_org)*(plu94046 + plu94225 + plu94770 + small_org_bag + large_org_bag + xlarge_org_bag)),
+    total_revenue = sum((avg_price_nonorg)*(total_nonorg_units) + (avg_price_org)*(total_org_units)),
     .groups = 'drop'
   ) %>%
   ggplot(aes(x = week_ending)) +
@@ -95,7 +95,7 @@ If we consider the entire dataset, what percentage of contribution to total reve
 hass_region %>%
   group_by(region) %>%
   summarize(
-    total_revenue = sum((avg_price_nonorg)*(plu4046 + plu4225 + plu4770 + small_nonorg_bag + large_nonorg_bag + xlarge_nonorg_bag) + (avg_price_org)*(plu94046 + plu94225 + plu94770 + small_org_bag + large_org_bag + xlarge_org_bag)),
+    total_revenue = sum((avg_price_nonorg)*(total_nonorg_units)) + sum(avg_price_org * total_org_units),
     .groups = 'drop'
   ) %>%
   arrange(desc(region)) %>%
@@ -111,7 +111,6 @@ hass_region %>%
   ggrepel::geom_label_repel(aes(y = ypos, label = txt), show.legend = FALSE, color = 'black', size = 3, nudge_x = 1) +
   labs(title = 'Revenue Proportion by Region', caption = 'Source: Hass Avocado Board') +
   theme(
-    # plot.background = element_rect(fill = "grey20"),
     plot.title = element_text(color = "#000000"),
     plot.caption = element_text(color = 'grey75'),
     panel.background = element_blank(),

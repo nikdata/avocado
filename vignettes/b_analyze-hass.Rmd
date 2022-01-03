@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The {avocado} package provides a weekly summary - starting from January 2017 through November 2020 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass` which focuses on weekly avocado sales in various cities/sub-regions across various regions (as defined by the [Hass Avocado Board](https://hassavocadoboard.com)) of the contiguous US. The `region` variable in the `hass` dataset can be 'merged' with the `hass_region` dataset using the `region` variable in both. Do note that the `location` variable only consists of a sample of cities/sub-regions found within respective regions. Therefore, the totals in this dataset will NOT equal the totals found in the `hass_region` dataset.
+The {avocado} package provides a weekly summary - starting from January 2017 through October 2021 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass` which focuses on weekly avocado sales in various cities/sub-regions across various regions (as defined by the [Hass Avocado Board](https://hassavocadoboard.com)) of the contiguous US. The `region` variable in the `hass` dataset can be 'merged' with the `hass_region` dataset using the `region` variable in both. Do note that the `location` variable only consists of a sample of cities/sub-regions found within respective regions. Therefore, the totals in this dataset will NOT equal the totals found in the `hass_region` dataset.
 
 Let's start by loading the package - along with {dplyr} (for data wrangling) and {ggplot} (for data visualization) - and exploring it's structure
 
@@ -80,7 +80,7 @@ hass %>%
     year, location
   ) %>%
   summarize(
-    total_revenue = sum((avg_price_nonorg * (plu4046 + plu4225 + plu4770 + small_nonorg_bag + large_nonorg_bag + xlarge_nonorg_bag)) + (avg_price_org * (plu94046 + plu94225 + plu94770 + small_org_bag + large_org_bag + xlarge_org_bag))) / 1000000,
+    total_revenue = sum((avg_price_nonorg * (total_nonorg_units)) + (avg_price_org * total_org_units)) / 1000000,
     .groups = 'drop'
   ) %>%
   ggplot(aes(x = year, y = total_revenue, group = location)) +
@@ -116,7 +116,7 @@ hass %>%
   ) %>%
   group_by(year, month, location) %>%
   summarize(
-    total_revenue = sum((avg_price_nonorg * (plu4046 + plu4225 + plu4770 + small_nonorg_bag + large_nonorg_bag + xlarge_nonorg_bag)) + (avg_price_org * (plu94046 + plu94225 + plu94770 + small_org_bag + large_org_bag + xlarge_org_bag))) / 1000000,
+    total_revenue = sum((avg_price_nonorg * total_nonorg_units) + (avg_price_org * total_org_units)) / 1000000,
     .groups = 'drop'
   ) %>%
   ggplot(aes(x = month, y = total_revenue, group = location, color = location)) +
@@ -136,7 +136,7 @@ hass %>%
         legend.key = element_rect(fill = 'grey20'),
         legend.title = element_text(color = 'grey75'),
         legend.text = element_text(color = 'grey75'),
-        strip.background = element_rect(fill = 'grey50'),
+        strip.background = element_rect(fill = 'grey80'),
         strip.text = element_text(color = 'black')
   )
 ```

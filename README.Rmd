@@ -78,3 +78,9 @@ Some potential use cases include:
 - Determining peak sale periods for each region
 - Determining which PLU is most popular in some major cities (e.g., Chicago, Los Angeles, etc.)
 - Differences between organic and non-organic Hass Avocados
+
+## Limitations
+
+The source of the data for this package is from the Hass Avocado Board. However, the data are known to come from a 3rd party source and is the best available information at the time it was provided to the Hass Avocado Board. There are many instances where adding up individual columns will not equal the total columns that are provided. No explanation is provided by the Hass Avocado Board about this discrepancy (or at least I couldn't find any information).
+
+For instance, the column `total_org_bag_units` may seem to be the total of three columns: `small_org_bag`, `large_org_bag`, and `xlarge_org_bag`. However, the sum of these 3 columns will often be less. On their website, Hass Avocado seems to use the total columns as often as possible without going into details of the totals.

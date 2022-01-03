@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The {avocado} package provides a weekly summary - starting from January 2017 through November 2020 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass_usa` which focuses on weekly avocado sales in the contiguous US.
+The {avocado} package provides a weekly summary - starting from January 2017 through October 2021 - of Hass Avocado sales. There are three datasets in this package and let's start with the dataset `hass_usa` which focuses on weekly avocado sales in the contiguous US.
 
 Let's start by loading the package - along with {dplyr} (for data wrangling) and {ggplot} (for data visualization) - and exploring it's structure
 
@@ -44,7 +44,12 @@ hass_usa %>%
   geom_line(aes(y = avg_price_nonorg, color = 'Non Organic')) +
   geom_line(aes(y = avg_price_org, color = 'Organic')) +
   scale_color_manual(values = c('steelblue','forestgreen')) +
-  labs(x = 'Year', y = 'Average Price per Pound in US$', color = 'Type', title = 'Average Selling Price by Week', caption = 'Not adjusted for inflation\nSource: Hass Avocado Board') +
+  labs(x = 'Year', 
+       y = 'Average Price per Pound in US$', 
+       color = 'Type', 
+       title = 'Average Selling Price by Week', 
+       caption = 'Not adjusted for inflation\nSource: Hass Avocado Board'
+       ) +
   ylim(min = 0, max = 3.0) +
   theme(plot.background = element_rect(fill = "grey20"),
         plot.title = element_text(color = "#FFFFFF"),
@@ -106,6 +111,9 @@ hass_usa %>%
   filter(week_ending > lubridate::ymd('2017-09-10') & week_ending < lubridate::ymd('2017-10-15')) %>%
   ggplot(aes(x = week_ending, y = nonorg_rev)) +
   geom_line(color = 'steelblue') +
+  scale_y_continuous(
+    labels = scales::dollar_format(scale = 0.001, suffix = 'K')
+  ) +
   labs(x = 'Year', y = 'Revenue', color = 'Type', title = 'Non Organic Avocado Sales Revenue', caption = 'Not adjusted for inflation\nSource: Hass Avocado Board') +
   theme(plot.background = element_rect(fill = "grey20"),
     plot.title = element_text(color = "#FFFFFF"),
