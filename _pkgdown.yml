@@ -1,4 +1,6 @@
 url: https://nikdata.github.io/avocado/
+news:
+  cran_dates: true
 template:
   bootstrap: 5
 
