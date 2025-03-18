@@ -1,6 +1,6 @@
 Package: avocado
 Title: Weekly Hass Avocado Sales Summary
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Nikhil",
            family = "Agarwal",
@@ -8,7 +8,7 @@ Authors@R:
            email = "gitnik@niks.me",
            comment = c(ORCID = "0000-0003-1470-7472"))
 Description: Provides a weekly summary of Hass Avocado sales for the 
-    contiguous US from January 2017 to November 2020. 
+    contiguous US from January 2017 through December 20204. 
     See the package website for more information, documentation,
     and examples. Data source: Haas Avocado Board 
     <https://hassavocadoboard.com/category-data/>.
@@ -16,17 +16,15 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1)
 Suggests: 
     dplyr,
-    purrr,
     ggplot2,
-    janitor,
     knitr,
-    rmarkdown,
-    lubridate,
-    tidyr,
-    ggrepel
+    quarto
 VignetteBuilder: knitr
+Config/Needs/website: quarto
+URL: https://github.com/nikdata/avocado
+BugReports: https://github.com/nikdata/avocado/issues

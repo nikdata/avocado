@@ -1,0 +1,12 @@
+---
+title: "example-analysis"
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+library(avocado)
+```

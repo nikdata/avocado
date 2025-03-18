@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^data-raw$
+^scratch$
 ^csv$
 ^LICENSE\.md$
 ^\.github$
@@ -12,3 +13,8 @@
 ^Meta$
 ^cran-comments.md$
 ^CRAN-RELEASE$
+^vignettes/articles/\.quarto$
+^vignettes/articles/*_files$
+^vignettes/articles$
+^revdep$
+^CRAN-SUBMISSION$
