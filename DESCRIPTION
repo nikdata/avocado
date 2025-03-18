@@ -21,12 +21,10 @@ Depends:
     R (>= 4.1)
 Suggests: 
     dplyr,
-    purrr,
     ggplot2,
-    janitor,
     knitr,
-    rmarkdown,
-    lubridate,
-    tidyr,
-    ggrepel
+    quarto
 VignetteBuilder: knitr
+Config/Needs/website: quarto
+URL: https://github.com/nikdata/avocado
+BugReports: https://github.com/nikdata/avocado/issues

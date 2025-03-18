@@ -13,3 +13,6 @@
 ^Meta$
 ^cran-comments.md$
 ^CRAN-RELEASE$
+^vignettes/articles/\.quarto$
+^vignettes/articles/*_files$
+^vignettes/articles$
