@@ -26,5 +26,5 @@ Suggests:
     quarto
 VignetteBuilder: knitr
 Config/Needs/website: quarto
-URL: https://github.com/nikdata/avocado
+URL: https://github.com/nikdata/avocado, https://nikdata.github.io/avocado/
 BugReports: https://github.com/nikdata/avocado/issues
