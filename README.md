@@ -12,6 +12,7 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 [![GitHub
 commit](https://img.shields.io/github/last-commit/nikdata/avocado)](https://github.com/nikdata/avocado/commit/main)
 [![R-CMD-check](https://github.com/nikdata/avocado/workflows/R-CMD-check/badge.svg)](https://github.com/nikdata/avocado/actions)
+[![R-CMD-check](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The {avocado} package provides a summary of weekly Hass avocado sales

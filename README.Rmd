@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub commit](https://img.shields.io/github/last-commit/nikdata/avocado)](https://github.com/nikdata/avocado/commit/main)
 [![R-CMD-check](https://github.com/nikdata/avocado/workflows/R-CMD-check/badge.svg)](https://github.com/nikdata/avocado/actions)
+[![R-CMD-check](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The {avocado} package provides a summary of weekly Hass avocado sales for the contiguous United States. The underlying data are from [The Hass Avocado Board](https://hassavocadoboard.com) (free registration required). Hass Avocados are the most popular variety of avocados sold in the United States and the Haas Avocado Board (HAB) provides crucial data on them to growers and marketers.
