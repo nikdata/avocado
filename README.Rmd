@@ -13,14 +13,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-# avocado <a href='https://nikdata.github.io/avocado/'><img src='man/figures/avocado.png' align="right" width="150" height="150" />
+# avocado <a href='https://nikdata.github.io/avocado/'><img src='man/figures/avocado.png' alt="avocado R package logo" align="right" width="150" height="150" />
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/avocado)](https://cran.r-project.org/package=avocado)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub commit](https://img.shields.io/github/last-commit/nikdata/avocado)](https://github.com/nikdata/avocado/commit/main)
-[![R-CMD-check](https://github.com/nikdata/avocado/workflows/R-CMD-check/badge.svg)](https://github.com/nikdata/avocado/actions)
 [![R-CMD-check](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -36,6 +35,7 @@ The {avocadoo} package consists of 3 primary [PLUs](https://en.wikipedia.org/wik
 * 4770: non-organic extra large Hass Avocados (~10-15 oz); also known as Hass #36 size or larger
 
 Organic avocados have the digit 9 prefixed to the non-organic PLUs:
+
 * 94046: organic small/medium Hass Avocados (~3-5 oz)
 * 94225: organic large Hass Avocados (~8-10 oz)
 * 94770: organic extra large Hass Avocados (~10-15 oz)

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# avocado <a href='https://nikdata.github.io/avocado/'><img src='man/figures/avocado.png' align="right" width="150" height="150" />
+# avocado <a href='https://nikdata.github.io/avocado/'><img src='man/figures/avocado.png' alt="avocado R package logo" align="right" width="150" height="150" />
 
 <!-- badges: start -->
 
@@ -11,7 +11,6 @@
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub
 commit](https://img.shields.io/github/last-commit/nikdata/avocado)](https://github.com/nikdata/avocado/commit/main)
-[![R-CMD-check](https://github.com/nikdata/avocado/workflows/R-CMD-check/badge.svg)](https://github.com/nikdata/avocado/actions)
 [![R-CMD-check](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nikdata/avocado/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -40,10 +39,11 @@ The {avocadoo} package consists of 3 primary
 - 4770: non-organic extra large Hass Avocados (~10-15 oz); also known as
   Hass \#36 size or larger
 
-Organic avocados have the digit 9 prefixed to the non-organic PLUs: \*
-94046: organic small/medium Hass Avocados (~3-5 oz) \* 94225: organic
-large Hass Avocados (~8-10 oz) \* 94770: organic extra large Hass
-Avocados (~10-15 oz)
+Organic avocados have the digit 9 prefixed to the non-organic PLUs:
+
+- 94046: organic small/medium Hass Avocados (~3-5 oz)
+- 94225: organic large Hass Avocados (~8-10 oz)
+- 94770: organic extra large Hass Avocados (~10-15 oz)
 
 Source: [Love One
 Today](https://loveonetoday.com/how-to/identify-hass-avocados/)
